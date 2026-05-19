@@ -1,67 +1,56 @@
-# Mergington High School Activities API
+# Campus Learning Hub API
 
-A super simple FastAPI application that allows students to view and sign up for extracurricular activities.
+This FastAPI app provides role-based learning registrations for any college.
 
 ## Features
 
-- View all available extracurricular activities
-- Sign up for activities
+- Multi-college activity catalog
+- Registration as `student` or `college`
+- Server-generated dummy feedback for every successful registration
+- Registration listing and unregister support
 
 ## Getting Started
 
-1. Install the dependencies:
+1. Install dependencies from the repository root:
 
    ```
-   pip install fastapi uvicorn
+   pip install -r requirements.txt
    ```
 
-2. Run the application:
+2. Run the API from the repository root:
 
    ```
-   python app.py
+   uvicorn src.app:app --reload
    ```
 
-3. Open your browser and go to:
-   - API documentation: http://localhost:8000/docs
-   - Alternative documentation: http://localhost:8000/redoc
+3. Open:
+   - App UI: http://localhost:8000/static/index.html
+   - API docs: http://localhost:8000/docs
 
 ## API Endpoints
 
-| Method | Endpoint                                                          | Description                                                         |
-| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-| GET    | `/activities`                                                     | Get all activities with their details and current participant count |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
-| DELETE | `/activities/{activity_name}/signup?email=student@mergington.edu` | Unregister from an activity                                         |
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| GET | `/colleges` | List available colleges |
+| GET | `/activities?college_id=northbridge` | List activities (optionally by college) |
+| GET | `/registrations?college_id=northbridge` | List registrations (optionally by college) |
+| POST | `/registrations` | Create role-based registration with dummy feedback |
+| DELETE | `/registrations/{registration_id}` | Remove a registration |
 
-## Data Model
+## Example Registration Request
 
-The application uses a simple data model with meaningful identifiers:
-
-1. **Activities** - Uses activity name as identifier:
-
-   - Description
-   - Schedule
-   - Maximum number of participants allowed
-   - List of student emails who are signed up
-
-2. **Students** - Uses email as identifier:
-   - Name
-   - Grade level
-
-All data is stored in memory, which means data will be reset when the server restarts.
-
-## Running Tests
-
-Run tests from the repository root:
-
-```
-pytest
+```json
+{
+  "name": "Aisha Khan",
+  "email": "aisha@northbridge.edu",
+  "role": "student",
+  "college_id": "northbridge",
+  "activity_id": "nb-ai-lab"
+}
 ```
 
-Useful commands:
+## Run Tests
 
 ```
-pytest -v
-pytest tests/test_signup.py
-pytest tests/test_unregister.py
+pytest -q
 ```

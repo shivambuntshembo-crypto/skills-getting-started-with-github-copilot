@@ -3,46 +3,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mergington High School Activities</title>
+    <title>Campus Learning Hub</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <header class="hero">
+      <p class="eyebrow">Shared Learning Platform</p>
+      <h1>Campus Learning Hub</h1>
+      <p class="hero-copy">
+        A registration portal any college can use for student and college-role learning activities.
+      </p>
     </header>
 
-    <main>
-      <section id="activities-container">
-        <h3>Available Activities</h3>
-        <div id="activities-list">
-          <!-- Activities will be loaded here -->
-          <p>Loading activities...</p>
+    <main class="layout-grid">
+      <section class="panel" id="registration-panel">
+        <h2>Create Registration</h2>
+        <p class="panel-subtext">Every successful registration includes server-generated dummy feedback.</p>
+
+        <form id="registration-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" type="text" placeholder="Ada Lovelace" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="ada@college.edu" required />
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select id="role" required>
+                <option value="student">Student</option>
+                <option value="college">College</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="college">College</label>
+              <select id="college" required>
+                <option value="">Select a college</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="activity">Learning Activity</label>
+            <select id="activity" required>
+              <option value="">Select an activity</option>
+            </select>
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
+
+        <div id="message" class="message hidden"></div>
+      </section>
+
+      <section class="panel" id="activities-panel">
+        <h2>College Activities</h2>
+        <div id="activities-list" class="stack-list">
+          <p class="loading-state">Select a college to view activities.</p>
         </div>
       </section>
 
-      <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
-        <form id="signup-form">
-          <div class="form-group">
-            <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
-          </div>
-          <div class="form-group">
-            <label for="activity">Select Activity:</label>
-            <select id="activity" required>
-              <option value="">-- Select an activity --</option>
-              <!-- Activity options will be loaded here -->
-            </select>
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <div id="message" class="hidden"></div>
+      <section class="panel" id="registrations-panel">
+        <h2>Recent Registrations</h2>
+        <div id="registrations-list" class="stack-list">
+          <p class="loading-state">No registrations yet for this college.</p>
+        </div>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2023 Mergington High School</p>
+      <p>&copy; 2026 Campus Learning Hub</p>
     </footer>
 
     <script src="app.js"></script>

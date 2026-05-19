@@ -1,21 +1,28 @@
-def test_get_activities_returns_activity_map(client):
+def test_get_activities_returns_list_payload(client):
     response = client.get("/activities")
 
     assert response.status_code == 200
     payload = response.json()
 
-    assert isinstance(payload, dict)
-    assert len(payload) >= 9
-    assert "Chess Club" in payload
+    assert "activities" in payload
+    assert isinstance(payload["activities"], list)
+    assert len(payload["activities"]) >= 6
 
 
-def test_get_activities_contains_expected_fields(client):
-    response = client.get("/activities")
-    payload = response.json()
+def test_get_activities_can_filter_by_college(client):
+    response = client.get("/activities", params={"college_id": "northbridge"})
+    assert response.status_code == 200
 
-    chess_club = payload["Chess Club"]
-    assert "description" in chess_club
-    assert "schedule" in chess_club
-    assert "max_participants" in chess_club
-    assert "participants" in chess_club
-    assert isinstance(chess_club["participants"], list)
+    activities = response.json()["activities"]
+    assert activities
+    assert all(activity["college_id"] == "northbridge" for activity in activities)
+
+
+def test_get_colleges_lists_available_colleges(client):
+    response = client.get("/colleges")
+    assert response.status_code == 200
+
+    colleges = response.json()["colleges"]
+    assert len(colleges) >= 3
+    college_ids = {college["id"] for college in colleges}
+    assert "northbridge" in college_ids
